@@ -9,32 +9,35 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    text-align: center;
     background: linear-gradient(135deg, #ff758c, #ff7eb3);
     color: white;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-/* Contenedor principal */
-.container {
+.section {
+    display: none;
     padding: 40px 20px;
-    max-width: 500px;
-    margin: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Imágenes */
+.active {
+    display: block;
+    animation: fade 1s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 img {
-    width: 100%;
+    width: 90%;
     max-width: 350px;
     border-radius: 20px;
-    margin: 15px 0;
+    margin: 20px 0;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-/* Botones */
-.buttons {
-    margin-top: 20px;
-    position: relative;
-    height: 120px;
 }
 
 button {
@@ -42,7 +45,13 @@ button {
     font-size: 18px;
     border: none;
     border-radius: 30px;
+    margin: 15px;
     cursor: pointer;
+}
+
+.next {
+    background: white;
+    color: #ff4d88;
 }
 
 #yes {
@@ -56,7 +65,11 @@ button {
     position: absolute;
 }
 
-/* Corazones */
+.buttons {
+    position: relative;
+    height: 120px;
+}
+
 .heart {
     position: fixed;
     top: -10px;
@@ -75,28 +88,54 @@ button {
 
 <body>
 
-<div class="container">
-
-<h1>
-Holaaaa ricitos 💕<br><br>
-
-¿Quieres ser mi San Valentín? 💖
-</h1>
-
-<img src="foto1.jpg">
-<img src="foto2.jpg">
-<img src="foto3.jpg">
-
-<div class="buttons">
-    <button id="yes" onclick="sayYes()">Sí 💖</button>
-    <button id="no" onmouseover="moveButton()">No 😢</button>
+<!-- SECCIÓN 1 -->
+<div class="section active" id="s1">
+    <h2>Hace 1 año empezó nuestra historia 💕</h2>
+    <img src="foto1.jpg">
+    <p>
+        Desde que llegaste a mi vida,
+        todo se volvió más bonito, más divertido
+        y muchísimo más especial.
+    </p>
+    <button class="next" onclick="nextSection(2)">Siguiente ❤️</button>
 </div>
 
+<!-- SECCIÓN 2 -->
+<div class="section" id="s2">
+    <h2>Entre risas, selfies y momentos únicos ✨</h2>
+    <img src="foto2.jpg">
+    <p>
+        Desde fotos en el espejo hasta aventuras inesperadas…
+        un año contigo se pasó volando,
+        y aún así siento que quiero mil más.
+    </p>
+    <button class="next" onclick="nextSection(3)">
+        Hay algo que quiero preguntarte 👀
+    </button>
+</div>
+
+<!-- SECCIÓN 3 -->
+<div class="section" id="s3">
+    <h2>
+        Ricitos💖<br><br>
+      
+    <img src="foto3.jpg">
+    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+
+    <div class="buttons">
+        <button id="yes" onclick="sayYes()">Sí 💕</button>
+        <button id="no" onmouseover="moveButton()">No 😢</button>
+    </div>
 </div>
 
 <script>
 
-// Botón que huye pero dentro del contenedor
+function nextSection(num) {
+    document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById("s" + num).classList.add("active");
+}
+
+// Botón que huye
 function moveButton() {
     const button = document.getElementById("no");
     const parent = document.querySelector(".buttons");
@@ -116,7 +155,9 @@ function sayYes() {
     document.body.innerHTML = `
     <div style="text-align:center; padding-top:150px;">
         <h1>
-        💕 Sabía que dirías que sí, Ricitos JAJAJAJAJ💕<br><br>
+        💕 Sabía que dirías que sí, Ricitos 💕<br><br>
+        Un año contigo no es nada comparado con todo lo que quiero vivir a tu lado.<br><br>
+        Gracias por ser mi paz, mi risa y mi lugar favorito.<br><br>
         Te amo muchísimo❤️
         </h1>
     </div>`;
@@ -136,12 +177,12 @@ function createHearts() {
     }, 300);
 }
 
-createHearts();
-
 </script>
 
 </body>
 </html>
+
+
 
 
 
